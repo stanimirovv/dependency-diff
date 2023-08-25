@@ -29,13 +29,10 @@ export class DependencyDiffService {
       if (match === undefined) {
         const newlyAddedModule: DiffModule = {
           source: module.source,
-          addedDependencies: module.dependencies.map((d) => d.resolved),
-
+          addedDependencies: [],
           existingDependencies: [],
-
-          removedDependencies: [],
-
-          isAdded: true,
+          removedDependencies: module.dependencies.map((d) => d.resolved),
+          isRemoved: true,
         };
         diffResponse.modules.push(newlyAddedModule);
       } else if (match) {
@@ -74,10 +71,10 @@ export class DependencyDiffService {
       if (match === undefined) {
         const removedModule: DiffModule = {
           source: module.source,
-          addedDependencies: [],
+          addedDependencies: module.dependencies.map((d) => d.resolved),
           existingDependencies: [],
-          removedDependencies: module.dependencies.map((d) => d.resolved),
-          isRemoved: true,
+          removedDependencies: [],
+          isAdded: true,
         };
         diffResponse.modules.push(removedModule);
       }

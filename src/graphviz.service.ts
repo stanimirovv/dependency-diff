@@ -15,7 +15,6 @@ export class GraphvizService {
 
     const nodes = uniqueFileNames.reduce((acc: Record<string, graphviz.Node>, fileName: string) => {
       acc[fileName] = g.addNode(fileName);
-      // TODO: add highlight for added removed to the node
       const module = diffResponse.modules.filter((module) => module.source === fileName)[0];
       if (module?.isAdded) {
         acc[fileName].set("color", newColor);
