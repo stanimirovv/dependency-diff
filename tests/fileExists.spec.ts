@@ -6,6 +6,6 @@ describe("test fileExists", () => {
   });
 
   it("existing file returns true", () => {
-    expect(fileExists("tests/data/before.json")).toBeTruthy();
+    expect(fileExists("tests/data/after.json")).toBeTruthy();
   });
 });

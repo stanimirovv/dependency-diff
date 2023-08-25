@@ -9,7 +9,7 @@
     "lint": "eslint 'src/**/*.{ts,tsx}' --quiet",
     "prettier-check": "prettier --check 'src/**/*.{ts,tsx}'",
     "prettier-fix": "prettier --write 'src/**/*.{ts,tsx}'",
-    "validate": "npm run compile && npm run lint && npm run prettier-check",
+    "validate": "npm run compile && npm run lint && npm run prettier-check && npm test",
     "fix": "npm run lint -- --fix && npm run prettier-fix"
   },
   "bin": {
@@ -28,6 +28,7 @@
     "@typescript-eslint/parser": "^6.4.0",
     "eslint": "^8.47.0",
     "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.3",
     "jest": "^29.6.2",
     "prettier": "^3.0.2",
     "ts-jest": "^29.1.1",

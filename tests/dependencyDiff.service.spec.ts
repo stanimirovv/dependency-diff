@@ -5,7 +5,7 @@ describe("test dependencyDiff", () => {
     const depDiff = new DependencyDiffService();
     expect.assertions(1);
     try {
-      depDiff.diff("./tests/data/after1.json", "./tests/data/after2.json");
+      depDiff.diff("tests/data/after1.json", "tests/data/after2.json");
     } catch (err) {
       expect(err).toBeDefined();
     }
@@ -13,10 +13,7 @@ describe("test dependencyDiff", () => {
 
   it("test nothing has changed", () => {
     const depDiff = new DependencyDiffService();
-    const response = depDiff.diff(
-      "./tests/data/after.json",
-      "./tests/data/after.json"
-    );
+    const response = depDiff.diff("./tests/data/after.json", "./tests/data/after.json");
 
     expect(response.modules.length).toBe(11);
   });
@@ -25,7 +22,7 @@ describe("test dependencyDiff", () => {
     const depDiff = new DependencyDiffService();
     const response = depDiff.diff(
       "./tests/data/after.json",
-      "./tests/data/after_added_module.json"
+      "./tests/data/after_added_module.json",
     );
 
     expect(response.modules.length).toBe(11);
@@ -37,7 +34,7 @@ describe("test dependencyDiff", () => {
     const depDiff = new DependencyDiffService();
     const response = depDiff.diff(
       "./tests/data/after.json",
-      "./tests/data/after_removed_module.json"
+      "./tests/data/after_removed_module.json",
     );
 
     expect(response.modules.length).toBe(12);
@@ -48,10 +45,7 @@ describe("test dependencyDiff", () => {
 
   it("test changes in dependencies and dependents", () => {
     const depDiff = new DependencyDiffService();
-    const response = depDiff.diff(
-      "./tests/data/before_mini.json",
-      "./tests/data/after_mini.json"
-    );
+    const response = depDiff.diff("./tests/data/before_mini.json", "./tests/data/after_mini.json");
 
     expect(response.modules.length).toBe(2);
     expect(response.modules).toEqual([
