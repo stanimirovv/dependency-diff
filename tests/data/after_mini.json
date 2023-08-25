@@ -1,0 +1,89 @@
+{
+  "modules": [
+    {
+      "source": "lib/base64.ts",
+      "dependencies": [],
+      "dependents": [],
+      "orphan": true,
+      "valid": true
+    },
+    {
+      "source": "lib/extractPrice.ts",
+      "dependencies": [
+        {
+          "dynamic": false,
+          "module": "./extractPrice/drinklink",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "resolved": "lib/extractPrice/drinklink.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "dependencyTypes": ["local"],
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./extractPrice/emag",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "resolved": "lib/extractPrice/emag.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "dependencyTypes": ["local"],
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./extractPrice/ozone",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "resolved": "lib/extractPrice/ozone.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "dependencyTypes": ["local"],
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./isValidUrl",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "resolved": "lib/isValidUrl.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "dependencyTypes": ["local"],
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        },
+        {
+          "dynamic": false,
+          "module": "./log",
+          "moduleSystem": "es6",
+          "exoticallyRequired": false,
+          "resolved": "lib/log.ts",
+          "coreModule": false,
+          "followable": true,
+          "couldNotResolve": false,
+          "dependencyTypes": ["local"],
+          "matchesDoNotFollow": false,
+          "circular": false,
+          "valid": true
+        }
+      ],
+      "dependents": ["asd"],
+      "orphan": false,
+      "valid": true
+    }
+  ]
+}
