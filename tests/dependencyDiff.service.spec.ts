@@ -52,20 +52,19 @@ describe("test dependencyDiff", () => {
       {
         source: "lib/base64.ts",
         addedDependencies: [],
-        addedDependents: [],
         existingDependencies: [],
-        existingDependents: [],
         removedDependencies: [],
-        removedDependents: [],
       },
       {
         source: "lib/extractPrice.ts",
         addedDependencies: ["lib/isValidUrl.ts"],
-        addedDependents: ["asd"],
-        existingDependencies: [],
-        existingDependents: [],
+        existingDependencies: [
+          "lib/extractPrice/drinklink.ts",
+          "lib/extractPrice/emag.ts",
+          "lib/extractPrice/ozone.ts",
+          "lib/log.ts",
+        ],
         removedDependencies: ["lib/extractPrice/avanti.ts"],
-        removedDependents: ["dzhe"],
       },
     ]);
   });

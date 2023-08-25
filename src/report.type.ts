@@ -35,13 +35,10 @@ export type DiffResponse = {
 export type DiffModule = {
   source: string;
   existingDependencies: RelativePath[];
-  existingDependents: RelativePath[];
 
   addedDependencies: RelativePath[];
-  addedDependents: RelativePath[];
 
   removedDependencies: RelativePath[];
-  removedDependents: RelativePath[];
 
   isAdded?: boolean;
   isRemoved?: boolean;

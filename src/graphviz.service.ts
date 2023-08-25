@@ -5,13 +5,7 @@ const existingColor = "grey";
 const newColor = "green";
 const removedColor = "red";
 
-type canDrawEdges =
-  | "existingDependencies"
-  | "existingDependents"
-  | "removedDependencies"
-  | "removedDependents"
-  | "addedDependencies"
-  | "addedDependents";
+type canDrawEdges = "existingDependencies" | "removedDependencies" | "addedDependencies";
 
 export class GraphvizService {
   public generateDotGraph(diffResponse: DiffResponse) {
@@ -21,6 +15,13 @@ export class GraphvizService {
 
     const nodes = uniqueFileNames.reduce((acc: Record<string, graphviz.Node>, fileName: string) => {
       acc[fileName] = g.addNode(fileName);
+      // TODO: add highlight for added removed to the node
+      const module = diffResponse.modules.filter((module) => module.source === fileName)[0];
+      if (module?.isAdded) {
+        acc[fileName].set("color", newColor);
+      } else if (module?.isRemoved) {
+        acc[fileName].set("color", removedColor);
+      }
       return acc;
     }, {});
 
@@ -32,17 +33,9 @@ export class GraphvizService {
   }
 
   drawEdgesForModule(g: graphviz.Graph, nodes: Record<string, graphviz.Node>, module: DiffModule) {
-    // Existing
     this.drawEdgeForDependencies(g, nodes, module, existingColor, "existingDependencies");
-    this.drawEdgeForDependents(g, nodes, module, existingColor, "existingDependents");
-
-    // Removed
     this.drawEdgeForDependencies(g, nodes, module, removedColor, "removedDependencies");
-    this.drawEdgeForDependents(g, nodes, module, removedColor, "removedDependents");
-
-    // Added
     this.drawEdgeForDependencies(g, nodes, module, newColor, "addedDependencies");
-    this.drawEdgeForDependents(g, nodes, module, newColor, "addedDependents");
   }
 
   drawEdgeForDependencies(
@@ -76,11 +69,8 @@ export class GraphvizService {
       ...report.modules.reduce((acc, item) => {
         const combined = [
           ...item.addedDependencies,
-          ...item.addedDependents,
           ...item.removedDependencies,
-          ...item.removedDependents,
           ...item.existingDependencies,
-          ...item.existingDependents,
           item.source,
         ];
 

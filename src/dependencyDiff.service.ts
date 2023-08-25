@@ -30,13 +30,10 @@ export class DependencyDiffService {
         const newlyAddedModule: DiffModule = {
           source: module.source,
           addedDependencies: module.dependencies.map((d) => d.resolved),
-          addedDependents: module.dependents,
 
           existingDependencies: [],
-          existingDependents: [],
 
           removedDependencies: [],
-          removedDependents: [],
 
           isAdded: true,
         };
@@ -46,24 +43,20 @@ export class DependencyDiffService {
         const addedDependencies = match.dependencies
           .filter((n) => !module.dependencies.map((d) => d.resolved).includes(n.resolved))
           .map((m) => m.resolved);
-        const addedDependents = match.dependents.filter((n) => !module.dependents.includes(n));
 
         const removedDependencies = module.dependencies
           .filter((n) => !match.dependencies.map((d) => d.resolved).includes(n.resolved))
           .map((m) => m.resolved);
 
-        const removedDependents = module.dependents.filter((n) => !match.dependents.includes(n));
+        const existingDependencies = module.dependencies
+          .filter((n) => match.dependencies.map((d) => d.resolved).includes(n.resolved))
+          .map((m) => m.resolved);
 
         const existingModule: DiffModule = {
           source: module.source,
           addedDependencies,
-          addedDependents,
-
-          existingDependencies: [],
-          existingDependents: [],
-
+          existingDependencies,
           removedDependencies,
-          removedDependents,
         };
         diffResponse.modules.push(existingModule);
       }
@@ -82,13 +75,8 @@ export class DependencyDiffService {
         const removedModule: DiffModule = {
           source: module.source,
           addedDependencies: [],
-          addedDependents: [],
-
           existingDependencies: [],
-          existingDependents: [],
-
           removedDependencies: module.dependencies.map((d) => d.resolved),
-          removedDependents: module.dependents,
           isRemoved: true,
         };
         diffResponse.modules.push(removedModule);
