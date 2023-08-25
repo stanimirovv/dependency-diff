@@ -35,5 +35,8 @@
   },
   "dependencies": {
     "graphviz": "^0.0.9"
+  },
+  "prettier": {
+    "printWidth": 100
   }
 }

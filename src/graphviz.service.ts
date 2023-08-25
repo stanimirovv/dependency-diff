@@ -2,6 +2,16 @@ import * as graphviz from "graphviz";
 import { DiffModule, DiffResponse } from "./report.type";
 
 const existingColor = "grey";
+const newColor = "green";
+const removedColor = "red";
+
+type canDrawEdges =
+  | "existingDependencies"
+  | "existingDependents"
+  | "removedDependencies"
+  | "removedDependents"
+  | "addedDependencies"
+  | "addedDependents";
 
 export class GraphvizService {
   public generateDotGraph(diffResponse: DiffResponse) {
@@ -9,13 +19,10 @@ export class GraphvizService {
     // generate all nodes
     const uniqueFileNames = this.getAllUniqueFileNames(diffResponse);
 
-    const nodes = uniqueFileNames.reduce(
-      (acc: Record<string, graphviz.Node>, fileName: string) => {
-        acc[fileName] = g.addNode(fileName);
-        return acc;
-      },
-      {}
-    );
+    const nodes = uniqueFileNames.reduce((acc: Record<string, graphviz.Node>, fileName: string) => {
+      acc[fileName] = g.addNode(fileName);
+      return acc;
+    }, {});
 
     diffResponse.modules.forEach((module) => {
       this.drawEdgesForModule(g, nodes, module);
@@ -24,42 +31,43 @@ export class GraphvizService {
     return g.to_dot();
   }
 
-  drawEdgesForModule(
-    g: graphviz.Graph,
-    nodes: Record<string, graphviz.Node>,
-    module: DiffModule
-  ) {
+  drawEdgesForModule(g: graphviz.Graph, nodes: Record<string, graphviz.Node>, module: DiffModule) {
     // Existing
-    module.existingDependencies.forEach((dep) => {
-      const e = g.addEdge(nodes[module.source], dep);
-      e.set("color", existingColor);
-    });
-
-    module.existingDependents.forEach((dep) => {
-      const e = g.addEdge(dep, nodes[module.source]);
-      e.set("color", existingColor);
-    });
+    this.drawEdgeForDependencies(g, nodes, module, existingColor, "existingDependencies");
+    this.drawEdgeForDependents(g, nodes, module, existingColor, "existingDependents");
 
     // Removed
-    module.removedDependencies.forEach((dep) => {
-      const e = g.addEdge(nodes[module.source], dep);
-      e.set("color", "red");
-    });
-
-    module.removedDependents.forEach((dep) => {
-      const e = g.addEdge(dep, nodes[module.source]);
-      e.set("color", "red");
-    });
+    this.drawEdgeForDependencies(g, nodes, module, removedColor, "removedDependencies");
+    this.drawEdgeForDependents(g, nodes, module, removedColor, "removedDependents");
 
     // Added
-    module.addedDependencies.forEach((dep) => {
-      const e = g.addEdge(nodes[module.source], dep);
-      e.set("color", "green");
-    });
+    this.drawEdgeForDependencies(g, nodes, module, newColor, "addedDependencies");
+    this.drawEdgeForDependents(g, nodes, module, newColor, "addedDependents");
+  }
 
-    module.addedDependents.forEach((dep) => {
+  drawEdgeForDependencies(
+    g: graphviz.Graph,
+    nodes: Record<string, graphviz.Node>,
+    module: DiffModule,
+    color: string,
+    key: canDrawEdges,
+  ) {
+    module[key].forEach((dep) => {
+      const e = g.addEdge(nodes[module.source], dep);
+      e.set("color", color);
+    });
+  }
+
+  drawEdgeForDependents(
+    g: graphviz.Graph,
+    nodes: Record<string, graphviz.Node>,
+    module: DiffModule,
+    color: string,
+    key: canDrawEdges,
+  ) {
+    module[key].forEach((dep) => {
       const e = g.addEdge(dep, nodes[module.source]);
-      e.set("color", "green");
+      e.set("color", color);
     });
   }
 

@@ -1,11 +1,6 @@
 import fileExists from "./utils/fileExists";
 
-import {
-  DependencyModule,
-  DiffModule,
-  DiffResponse,
-  Module,
-} from "./report.type";
+import { DependencyModule, DiffModule, DiffResponse, Module } from "./report.type";
 import parseDepcruiseReport from "./utils/parseDepCruiseReport";
 
 export class DependencyDiffService {
@@ -20,10 +15,7 @@ export class DependencyDiffService {
     return this.diffReports(beforeReport, afterReport);
   }
 
-  private diffReports(
-    beforeReport: DependencyModule,
-    afterReport: DependencyModule
-  ): DiffResponse {
+  private diffReports(beforeReport: DependencyModule, afterReport: DependencyModule): DiffResponse {
     const diffResponse: DiffResponse = { modules: [] };
 
     // Check for new Modules
@@ -52,25 +44,15 @@ export class DependencyDiffService {
       } else if (match) {
         // If match found, diff the dependents
         const addedDependencies = match.dependencies
-          .filter(
-            (n) =>
-              !module.dependencies.map((d) => d.resolved).includes(n.resolved)
-          )
+          .filter((n) => !module.dependencies.map((d) => d.resolved).includes(n.resolved))
           .map((m) => m.resolved);
-        const addedDependents = match.dependents.filter(
-          (n) => !module.dependents.includes(n)
-        );
+        const addedDependents = match.dependents.filter((n) => !module.dependents.includes(n));
 
         const removedDependencies = module.dependencies
-          .filter(
-            (n) =>
-              !match.dependencies.map((d) => d.resolved).includes(n.resolved)
-          )
+          .filter((n) => !match.dependencies.map((d) => d.resolved).includes(n.resolved))
           .map((m) => m.resolved);
 
-        const removedDependents = module.dependents.filter(
-          (n) => !match.dependents.includes(n)
-        );
+        const removedDependents = module.dependents.filter((n) => !match.dependents.includes(n));
 
         const existingModule: DiffModule = {
           source: module.source,
