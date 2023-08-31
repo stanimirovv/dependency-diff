@@ -1,6 +1,6 @@
 {
   "name": "@stanimirovv/dependency-diff",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Diff dependency-cruiser jsons",
   "main": "dist/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "depcruise-report": "npx depcruise src --include-only \"^src\" --output-type json"
   },
   "bin": {
-    "dependency-diff": "dist/index.js"
+    "dependency-diff": "dist/src/index.js"
   },
   "author": "Zlatin Stanimirov",
   "license": "ISC",
