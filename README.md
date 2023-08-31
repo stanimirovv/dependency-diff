@@ -6,6 +6,8 @@ You can visualize the output either with a [cmd](https://graphviz.org/doc/info/c
 
 
 ### Setup
+It is expected you have a git binary.
+
 You need to setup [dependency-cruiser](https://www.npmjs.com/package/dependency-cruiser "dependency-cruiser") in your project as this is what generates the dependencies.
 
     npm i --save-dev dependency-cruiser
@@ -22,4 +24,5 @@ Finally, add a script to your `package.json` that `dependency-diff` will call:
 **! Depending on your project's structure this might be a different script**
 
 ### Usage
-    TODO
+    npx dependency-diff <branch A> <branch B>
+
