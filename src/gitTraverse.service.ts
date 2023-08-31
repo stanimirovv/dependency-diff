@@ -37,7 +37,7 @@ export class GitTraverseService {
   private async generateReport(branch: string) {
     try {
       const reportName = `${branch}-report.json`;
-      await execAsync(`npm run depcruise-report > ${reportName}`);
+      await execAsync(`npm run depcruise-report > ${reportName} --silent`);
 
       return reportName;
     } catch (error) {
