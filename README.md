@@ -1,6 +1,6 @@
 ### Dependency Diff
 
-generate [DOT](https://graphviz.org/doc/info/lang.html "DOT") diagrams showing the dependency diff between two versions of a git repository
+generate [DOT](https://graphviz.org/doc/info/lang.html "DOT") diagrams showing the code level dependency diff between two versions of a git repository
 
 You can visualize the output either with a [cmd](https://graphviz.org/doc/info/command.html "cmd") tool or [online](https://dreampuf.github.io/GraphvizOnline/ "online")
 

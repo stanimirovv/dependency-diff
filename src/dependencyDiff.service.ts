@@ -62,7 +62,6 @@ export class DependencyDiffService {
     });
 
     // Check for removed modules
-    // TODO: extract function
     afterReport.modules.forEach((module: Module) => {
       const match = beforeReport.modules.find((beforeModule: Module) => {
         return beforeModule.source === module.source;

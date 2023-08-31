@@ -31,7 +31,6 @@ export type DiffResponse = {
   modules: DiffModule[];
 };
 
-//TODO: we probablly don't need dependents and should instead put them as dependencies to their respective module
 export type DiffModule = {
   source: string;
   existingDependencies: RelativePath[];
