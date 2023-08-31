@@ -10,7 +10,8 @@
     "prettier-check": "prettier --check 'src/**/*.{ts,tsx}'",
     "prettier-fix": "prettier --write 'src/**/*.{ts,tsx}'",
     "validate": "npm run compile && npm run lint && npm run prettier-check && npm test",
-    "fix": "npm run lint -- --fix && npm run prettier-fix"
+    "fix": "npm run lint -- --fix && npm run prettier-fix",
+    "depcruise-report": "npx depcruise src --include-only \"^src\" --output-type json"
   },
   "bin": {
     "dependency-diff": "dist/index.js"
@@ -35,6 +36,7 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "dependency-cruiser": "^13.1.5",
     "graphviz": "^0.0.9"
   },
   "prettier": {
